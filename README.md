@@ -12,7 +12,10 @@ Our “going beyond” element will be implementing a Hamming code in our data t
 
 
 Reading File from command line:
-Make sure in C directory 
+
+Make sure in C directory: 
 C:\cd C:\Program Files\UHD\lib\uhd\examples
-Then run this to receive, make sure you start receiving before sending
-C:\Program Files\UHD\lib\uhd\examples>rx_samples_to_file --rate 250e3 --freq 2.489e9 --type float -- gain 20 -- file C:\Users\lpudvan\Documents\MATLAB\received.dat
+
+Then run this to receive, make sure you start receiving before sending:
+
+C:\Program Files\UHD\lib\uhd\examples>rx_samples_to_file --rate 250e3 --freq 2.489e9 --type float --gain 20 --file C:\Users\lpudvan\Documents\MATLAB\received.dat
