@@ -1,4 +1,4 @@
-function y = errorCalculation(expected,actual)
+function errorCalculation(expected,actual)
     errorCounter = 0;
     
     if length(expected) > length(actual)
