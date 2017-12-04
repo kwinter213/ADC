@@ -1,4 +1,4 @@
-function errorCalculation(expected,actual)
+function y = errorCalculation(expected,actual)
     errorCounter = 0;
     
     if length(expected) > length(actual)
@@ -10,5 +10,5 @@ function errorCalculation(expected,actual)
         end
     end
     errorRate = errorCounter/length(expected);
-    disp(errorRate)
+    y = errorRate;
 end
