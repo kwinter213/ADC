@@ -3,9 +3,8 @@ function decoded = hamming_decode(received)
 % It takes an encoded row vector of length 7 and returns the decoded
 % vector. Can correct up to 1 bit error.
 
-if length(received) != 7
+if length(received) ~= 7
     disp("input vector wrong length");
-    break
 end
 
 wrongIndex = 0;
