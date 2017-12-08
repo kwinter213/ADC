@@ -11,8 +11,7 @@ Our “going beyond” element will be implementing a Hamming code in our data t
 
 
 Reading File from command line:
-
-..* Make sure in C directory: 
+- Make sure in C directory: 
 ..* C:\cd C:\Program Files\UHD\lib\uhd\examples
 
 Then run this to receive, make sure you start receiving before sending:
