@@ -17,7 +17,7 @@ H = [0 0 0 1 1 1 1;
 
 check = mod(received*H',2); % if 1 bit error, returns vector which matches column corresponding to incorrect location
 
-wrongBit =bi2de(check);     % convert binary number/column error to index
+wrongBit =bi2de(fliplr(check))     % convert binary number/column error to index
     
 if wrongBit > 0
     corrected(wrongBit) = corrected(wrongBit) + 1;
