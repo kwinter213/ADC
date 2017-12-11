@@ -1,18 +1,16 @@
-function y = trimming(recievedFileToBeTrimmed, starter, ender)
+function y = trimming(recievedFileToBeTrimmed, starter, msgLength)
 %     This is a function to trimm the received data file to just the
-%     message. Starter and ender must have an even length. 
+%     message. Starter must have an even length. Outputs message
+%     with header
 
    
-%     Finding the ammount to cut. 
+%     Finding the where starter starts
     [corrWithStarter, starterLag] = (xcorr(recievedFileToBeTrimmed,starter));
     [~,I] = max(abs(corrWithStarter));
-    lagStart = starterLag(I) - length(starter)/2;   % Not the actual start, must account for header offset
+    lagStart = starterLag(I) + 1;   % Not the actual start, must account for header offset
     
-%    Finding the ending point. 
-    [corrWithEnder, enderLag] = (xcorr(recievedFileToBeTrimmed,ender));
-    [~,J] = max(abs(corrWithEnder));
-    lagEnd = enderLag(J) - length(ender)/2;   % Not the actual start, must account for header offset
     
 %     result is trimmed file where only the front is trimmed off
-    y = recievedFileToBeTrimmed(lagStart:lagEnd); 
+    y = recievedFileToBeTrimmed(lagStart:lagStart + msgLength); 
 end
+
