@@ -1,4 +1,4 @@
-function y = trimmingsketch(recievedFileToBeTrimmed, starter, msgLength)
+function [receHead,reciMess] = trimmingsketch(recievedFileToBeTrimmed, starter, msgLength)
 %     This is a function to trim the received data file to just the
 %     message. Starter must have an even length. Outputs message
 %     with header
@@ -15,8 +15,11 @@ for i = lagStart-300:length(recievedFileToBeTrimmed)
         break
     end
 end
-    disp(real(recievedFileToBeTrimmed(messageStart-1)))
-    disp(messageStart-1)
+    disp(real(recievedFileToBeTrimmed(messageStart)))
+    disp(messageStart)
 %     result is trimmed file where only the front is trimmed off
-    y = recievedFileToBeTrimmed(messageStart:messageStart + msgLength); 
+receHead = recievedFileToBeTrimmed(messageStart+length(starter):messageStar);
+reciMess = recievedFileToBeTrimmed(messageStart+length(starter):messageStart+msgLength); 
+%trimms 20 before start, these 20 are known from the headder to help phase
+%adjust and know the quadrent of these pts.
 end
