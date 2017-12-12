@@ -25,18 +25,17 @@ plot(rHead(length(rHead)-20:length(rHead)-1), 'r.');
 plot(headoff,'b.');
 counter=0;
 for k=1:length(headoff)-1
-    a=real(headoff(k));
-    b=imag(headoff(k));
-    counter=counter+atand(b/a);
+    counter=counter+angle(headoff(k));
 end
 
-offsettot=counter/length(headoff) %taking the average of these points is now our phase offset avg.
-move=315-offsettot
+offsettot=counter/length(headoff); %taking the average of these points is now our phase offset avg.
+degrees=offsettot*180/pi;
+move=315-degrees;
 
 for k = 1:length(corrected)-1
    newcorrected(k) = corrected(k)/exp((-move)*1j);   % adjust for phase offset
 end
-newcorrected
+newcorrected;
 figure;
 hold on;
 plot(received, 'r.');
