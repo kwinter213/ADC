@@ -18,8 +18,6 @@ end
     disp(real(recievedFileToBeTrimmed(messageStart)))
     disp(messageStart)
 %     result is trimmed file where only the front is trimmed off
-receHead = recievedFileToBeTrimmed(messageStart+length(starter):messageStar);
+receHead = recievedFileToBeTrimmed(messageStart:messageStart+length(starter));
 reciMess = recievedFileToBeTrimmed(messageStart+length(starter):messageStart+msgLength); 
-%trimms 20 before start, these 20 are known from the headder to help phase
-%adjust and know the quadrent of these pts.
 end
