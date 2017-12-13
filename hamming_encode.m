@@ -1,7 +1,10 @@
-function encoded = hamming_encode(message)
+function encodedMessage = hamming_encode(Inputmessage)
 % Function generates encoded message using 
-% Hamming coding method. It takes a row vector of length 4.
-% Generator matrix G produces a 7 bit matrix with 3 parity bits.
+% Hamming coding method. Message to be encoded. Message must multple of 4.
+encodedMessage = [];
+for i = 1:4:length(Inputmessage)
+    
+    message = Inputmessage(i:i+3); % encode this
 
 if length(message) ~= 4
     disp("Input vector wrong length");
@@ -15,4 +18,7 @@ G = [0 1 1 1 0 0 0;
 encoded = (message*G);
 encoded = mod(encoded, 2);
 
+
+encodedMessage = horzcat(encodedMessage, encoded); 
+end
 end
