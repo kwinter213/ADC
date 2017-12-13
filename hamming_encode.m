@@ -1,37 +1,26 @@
-function decoded = hamming_decode(received)
-% Function decodes Hamming encoded message using 
-% It takes an encoded row vector and returns decoded. Can correct up to 1 error per 
-% every 7 bits. To work input, vector must be multiple of 7.
-
-decoded = [];
-
-for i = 1:7:length(received)- 6    % Every 7 bits are evaluated to decode into 4 bits
-    todecode = received(i:i+6); % decode this section
-
-if length(todecode) ~= 7
-    disp("input vector wrong length");
-end
-
-wrongIndex = 0;
-corrected = todecode;
-
-% parity check matrix in order of increasing binary numbers
-H = [0 0 0 1 1 1 1;
-     0 1 1 0 0 1 1;
-     1 0 1 0 1 0 1];
-
-check = mod(todecode'*H',2) % if 1 bit error, returns vector which matches column corresponding to incorrect location
-
-wrongBit =bi2de(fliplr(check))     % convert binary number/column error to index
+function encodedMessage = hamming_encode(Inputmessage)
+% Function generates encoded message using 
+% Hamming coding method. Message to be encoded. Message must multple of 4.
+Inputmessage=sign(Inputmessage+1);
+encodedMessage = [];
+for i = 1:4:length(Inputmessage)
     
-if wrongBit > 0
-    corrected(wrongBit) = corrected(wrongBit) + 1;
-    corrected = mod(corrected, 2);  % correct the error (if exists)
-    
+    message = Inputmessage(i:i+3); % encode this
+
+if length(message) ~= 4
+    disp('Input vector wrong length');
 end
 
-decoded = horzcat(decoded, [corrected(3), corrected(5), corrected(6), corrected(7)]); % decoded message, removes parity bits
+G = [0 1 1 1 0 0 0;
+     1 0 1 0 1 0 0;
+     1 1 0 0 0 1 0;
+     1 1 1 0 0 0 1]; 
 
+encoded = (message*G);
+encoded = mod(encoded, 2);
+
+
+encodedMessage = horzcat(encodedMessage, encoded); 
 end
-
+encodedMessage=sign(encodedMessage-.5);
 end
