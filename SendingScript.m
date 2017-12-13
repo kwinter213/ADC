@@ -8,6 +8,8 @@ HammedMessageImag = hamming_encode(MessageImag');
 BoxedMessageImag = boxing(HammedMessageImag,5);
 
 Message = BoxedMessageReal + BoxedMessageImag*sqrt(-1);
-
-ToSend = vertcat(Header', Message); % complex vector
+for i =1:1000
+    ones(i)=1;
+end
+ToSend = [ones,zeros(1000,1)', Header, Message', zeros(1000,1)', ones]; % complex vector
 write_usrp_data_file(ToSend);
