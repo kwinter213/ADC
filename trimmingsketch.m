@@ -8,12 +8,17 @@ function [receHead,reciMess] = trimmingsketch(recievedFileToBeTrimmed, starter, 
 lagStart = starterLag(I) + 1;   % Not the actual start, must account for header offset
 disp(lagStart)
 
+
 messageStart = 0;
 for i = lagStart-300:length(recievedFileToBeTrimmed)
     if abs(real(recievedFileToBeTrimmed(i))) > 1e-3
         messageStart = i;
         break
     end
+end
+
+if messageStart == lagStart-300
+    error('triiming error, retransmit')
 end
     disp(real(recievedFileToBeTrimmed(messageStart)))
     disp(messageStart)
