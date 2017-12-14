@@ -25,8 +25,19 @@ for k=1:length(headoff)
 end
 
 offsettot=counter/length(headoff); %taking the average of these points is now our phase offset avg.
-degrees=offsettot*180/pi;
-move=145-degrees;
+%degrees=offsettot*180/pi;
+if(offsettot<pi/2 && offsettot>0)
+    move= pi/2; %shift 
+elseif(offsettot>pi && offsettot>pi/2)
+    move=0;
+elseif(offsettot>-pi &&offsettot<-pi/2)
+    move=3*pi/2;
+elseif(offsettot<0 && offsettot>-pi/2)
+    move=pi;
+else
+    display(move);
+end
+
 
 for k = 1:length(corrected)
    newcorrected(k) = corrected(k)/exp((-move)*1j);   % adjust for phase offset
