@@ -16,7 +16,7 @@ for k = 1:length(received)-1
    corrected(k) = received(k)./exp(angfreqOff*k*j+phaseOff*j);   % adjust for phase offset
 end
 for k =length(rHead)-18:length(rHead)-1
-    headoff(k)= rHead(k)./exp(-angfreqOff*k*1j); %adjust for phase offset
+    headoff(k)= rHead(k)./exp(-angfreqOff*k*1j+phaseOff*j); %adjust for phase offset
 end
 
 counter=0;
