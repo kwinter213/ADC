@@ -3,7 +3,7 @@ function decoded = hamming_decode(received)
 % It takes an encoded row vector and returns decoded. Can correct up to 1 error per 
 % every 7 bits. To work input, vector must be multiple of 7.
 
-received = sign(received + ones(length(received), 1));
+received = sign(received+1)
 
 decoded = [];
 
@@ -22,7 +22,7 @@ H = [0 0 0 1 1 1 1;
      0 1 1 0 0 1 1;
      1 0 1 0 1 0 1];
 
-check = mod(todecode'*H',2) % if 1 bit error, returns vector which matches column corresponding to incorrect location
+check = mod(todecode'*H',2)        % if 1 bit error, returns vector which matches column corresponding to incorrect location
 
 wrongBit =bi2de(fliplr(check))     % convert binary number/column error to index
     
@@ -36,6 +36,5 @@ decoded = horzcat(decoded, [corrected(3), corrected(5), corrected(6), corrected(
 
 end
 
-decoded = sign(decoded - .5);
 
 end
