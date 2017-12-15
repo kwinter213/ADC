@@ -1,4 +1,4 @@
-function [receHead,reciMess] = trimmingsketch(recievedFileToBeTrimmed, starter, lengthStartAndMsg)
+function [receHead,reciMess] = trimming(recievedFileToBeTrimmed, starter, lengthStartAndMsg)
 %     This is a function to trim the received data file to just the
 %     message. Starter must have an even length. Outputs message
 %     with header
