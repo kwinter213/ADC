@@ -1,15 +1,13 @@
 Header = norandHead;
-MessageReal = real(Laurens);
-HammedMessageReal = hamming_encode(MessageReal');
-BoxedMessageReal = boxing(MessageReal,5)';
+MessageReal = string_to_bits('jazziest');   %outputs 1's and 0's
+HammedMessageReal = sign(hamming_encode(MessageReal)-.5);   %Hamming outputs 1's and 0's. Change this to 1's and -1's
+BoxedMessageReal = boxing(HammedMessageReal,50)';
 
-MessageImag = imag(Laurens);
-HammedMessageImag = hamming_encode(MessageImag');
-BoxedMessageImag = boxing(MessageImag,5)';
+MessageImag = string_to_bits('buzzword');
+HammedMessageImag = sign(hamming_encode(MessageImag)-.5);
+BoxedMessageImag = boxing(HammedMessageImag,50)';
 
 Message = BoxedMessageReal + BoxedMessageImag*sqrt(-1);
-for i =1:1000
-    ones(i)=1;
-end
-ToSend = [ones,zeros(1000,1)', Header, Message, zeros(1000,1)', ones]; % complex vector
+
+ToSend = [ones(1000, 1)',zeros(1000,1)', Header, Message, zeros(1000,1)', ones(1000, 1)']; % complex vector
 write_usrp_data_file(ToSend);
