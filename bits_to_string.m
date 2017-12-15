@@ -4,6 +4,7 @@ function string = bits_to_string(bits)
 string = [];
 
 for i = 1:7:length(bits)-6
-    string = horzcat(string, char(bin2dec(bits(i:i+6))));
+    disp(bits(i:i+6))
+     string = horzcat(string, char(bin2dec(num2str((bits(i:i+6))))));
 
 end
