@@ -15,7 +15,7 @@ Our “going beyond” element is implementing a Hamming code in our data transm
 - C:\cd C:\Program Files\UHD\lib\uhd\examples
 
 Then run something similar to this to send, make sure you start receiving before sending:
-- C:\Program Files\UHD\lib\uhd\examples>tx_samples_from_file --rate 250e3 --freq 2.489e9 --type float --gain 20 --file C:\Users\lpudvan\Documents\MATLAB\sending.dat
+- C:\Program Files\UHD\lib\uhd\examples>tx_samples_from_file --rate 260e3 --freq 2.489e9 --type float --gain 20 --file C:\Users\lpudvan\Documents\MATLAB\sending.dat
 
 Double check that you have downloaded all the functions in this repository. Then edit and run SendingScript.m for the file names desired.
 
@@ -25,7 +25,7 @@ Double check that you have downloaded all the functions in this repository. Then
 - C:\cd C:\Program Files\UHD\lib\uhd\examples
 
 Then run something similar to this to receive, make sure you start receiving before sending:
-- C:\Program Files\UHD\lib\uhd\examples>rx_samples_to_file --rate 250e3 --freq 2.489e9 --type float --gain 20 --file C:\Users\lpudvan\Documents\MATLAB\received.dat
+- C:\Program Files\UHD\lib\uhd\examples>rx_samples_to_file --rate 260e3 --freq 2.489e9 --type float --gain 20 --file C:\Users\lpudvan\Documents\MATLAB\received.dat
 
 Double check that you have downloaded all the functions in this repository. Then edit and run receiving_script.m for the file names desired.
 
