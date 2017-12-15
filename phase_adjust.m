@@ -1,10 +1,12 @@
-function [newcorrected] = phase_adjust(received,rHead)
+function [adjustedmess] = phase_adjust(received,rHead, knownHead)
 %This function assumes Raleigh flat fading channel model 
 %and corrects for constant phase offsets 
 
-%corrected = zeros(length(received-1)); 
+knownHead = knownHead(end-19:end);
+tocorrect = vertcat(rHead(end-19:end), received);
+corrected = zeros(length(tocorrect),1);
 
-Fourth = received.^4;   % ^4 makes 1 + 1j term constant
+Fourth = tocorrect.^4;   % ^4 makes 1 + 1j term constant
 FFTfourth = fftshift(fft(Fourth)); % looking for freq offset
 ws =(-pi:2*pi/length(Fourth):pi-2*pi/length(Fourth));   % corresponding angular frequency
 
@@ -12,44 +14,49 @@ ws =(-pi:2*pi/length(Fourth):pi-2*pi/length(Fourth));   % corresponding angular 
 angfreqOff = (ws(I)/4); % find corresponding angular frequency of offset
 phaseOff=angle(P)/4;
 
-for k = 1:length(received)-1
-   corrected(k) = received(k)./exp(angfreqOff*k*j+phaseOff*j);   % adjust for phase offset
-end
-for k =length(rHead)-18:length(rHead)-1
-    headoff(k)= rHead(k)./exp(-angfreqOff*k*1j+phaseOff*j); %adjust for phase offset
+for k = 1:length(tocorrect)
+   corrected(k) = tocorrect(k)./exp(angfreqOff*k*1j+phaseOff*1j);   % adjust for phase offset
 end
 
-counter=0;
-for k=1:length(headoff)
-    counter=counter+angle(headoff(k));
+% correct the quadrant
+% figure out where the last 20 values of the Header (the first 20 of
+% tocorrect) should go
+knownPhase = 0;
+for i = 1:20
+    kno = phase(knownHead(i));
+    if kno < 0
+        kno = 2*pi + kno;
+    end
+    knownPhase = knownPhase + kno;
+end
+knownPhase = knownPhase/20;
+
+offPhase=0;
+for k=1:20
+    off = phase(corrected(k));
+    if off < 0
+        off = 2*pi + off;
+    end
+    offPhase=offPhase+ off;
 end
 
-offsettot=counter/length(headoff); %taking the average of these points is now our phase offset avg.
-%degrees=offsettot*180/pi;
-if(offsettot<pi/2 && offsettot>0)
-    move= pi/2; %shift 
-elseif(offsettot>pi && offsettot>pi/2)
-    move=0;
-elseif(offsettot>-pi &&offsettot<-pi/2)
-    move=3*pi/2;
-elseif(offsettot<0 && offsettot>-pi/2)
-    move=pi;
-else
-    display(move);
-end
+offPhase = offPhase/20;
+
+phaseCorrection = knownPhase - offPhase;
 
 
 for k = 1:length(corrected)
-   newcorrected(k) = corrected(k)/exp((-move)*1j);   % adjust for phase offset
+   corrected(k) = corrected(k)*exp((phaseCorrection)*1j);   % adjust for phase offset
 end
 
-newcorrected;
+% newcorrected;
 figure;
 hold on;
-plot(received, 'r.');
-plot(corrected, 'b.');
-plot(newcorrected,'g.');
+plot(corrected(1:20), 'r.');
+plot(corrected(21:end), 'b.');
 
+adjustedmess = corrected(21:end);
 
-
+% from quirk of last transmission, adjustedmess is actually
+adjustedmess = vertcat(zeros(50,1), adjustedmess(1:end-50));
 end
