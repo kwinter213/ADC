@@ -7,7 +7,7 @@ function  y = read_usrp_data_file
 %  floating point numbers. e.g. --format float  for rx_samples_from_file
 % and complex for gnuradio companion file sink
 
-    f1 = fopen('received2.dat', 'r');
+    f1 = fopen('X:\!aaiguana\ThursNight\ReceivedThursNight.dat', 'r');
     tmp = fread(f1,'float32');
     fclose(f1);
     y = tmp(1:2:end)+1i*tmp(2:2:end);
